@@ -84,15 +84,19 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(card);
     });
 
-    // 统计功能
-    console.log(`导航页面已加载 ${linkCards.length} 个链接`);
+    // 统计功能（调试用）
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        console.log(`导航页面已加载 ${linkCards.length} 个链接`);
+    }
 
     // 添加点击统计（可选）
     linkCards.forEach(card => {
         card.addEventListener('click', function() {
-            const title = this.querySelector('h3').textContent;
-            console.log(`点击链接: ${title}`);
             // 这里可以添加数据统计逻辑
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                const title = this.querySelector('h3').textContent;
+                console.log(`点击链接: ${title}`);
+            }
         });
     });
 });
