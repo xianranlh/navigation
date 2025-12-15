@@ -70,9 +70,17 @@ function performSearch() {
     }
     
     // Check if input is a URL
-    const urlPattern = /^(https?:\/\/)?([\w\-]+(\.[\w\-]+)+)([\w\-\.,@?^=%&:/~\+#]*)?$/;
+    function isValidUrl(string) {
+        try {
+            const url = string.startsWith('http') ? string : 'https://' + string;
+            new URL(url);
+            return true;
+        } catch {
+            return false;
+        }
+    }
     
-    if (urlPattern.test(query)) {
+    if (isValidUrl(query)) {
         // If it looks like a URL, navigate to it
         const url = query.startsWith('http') ? query : 'https://' + query;
         window.open(url, '_blank');
@@ -142,5 +150,3 @@ document.querySelectorAll('.link-card').forEach(card => {
     card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     observer.observe(card);
 });
-
-console.log('个人导航页面已加载完成');
