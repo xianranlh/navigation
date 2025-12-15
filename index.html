@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="个人导航页面 - 快速访问常用网站">
+    <title>个人导航页面</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="title">个人导航</h1>
+            <div class="header-controls">
+                <button id="themeToggle" class="btn-icon" title="切换主题">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Search Box -->
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="搜索或输入网址..." autocomplete="off">
+                <button id="searchBtn" class="search-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="search-engines">
+                <button class="search-engine active" data-engine="baidu">百度</button>
+                <button class="search-engine" data-engine="google">Google</button>
+                <button class="search-engine" data-engine="bing">Bing</button>
+            </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="nav-section">
+            <h2 class="section-title">常用网站</h2>
+            <div class="links-grid">
+                <a href="https://www.baidu.com" class="link-card" target="_blank">
+                    <div class="link-icon">百</div>
+                    <span class="link-name">百度</span>
+                </a>
+                <a href="https://www.google.com" class="link-card" target="_blank">
+                    <div class="link-icon">G</div>
+                    <span class="link-name">Google</span>
+                </a>
+                <a href="https://www.github.com" class="link-card" target="_blank">
+                    <div class="link-icon">Git</div>
+                    <span class="link-name">GitHub</span>
+                </a>
+                <a href="https://www.bilibili.com" class="link-card" target="_blank">
+                    <div class="link-icon">B</div>
+                    <span class="link-name">哔哩哔哩</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="nav-section">
+            <h2 class="section-title">社交媒体</h2>
+            <div class="links-grid">
+                <a href="https://weibo.com" class="link-card" target="_blank">
+                    <div class="link-icon">微</div>
+                    <span class="link-name">微博</span>
+                </a>
+                <a href="https://www.zhihu.com" class="link-card" target="_blank">
+                    <div class="link-icon">知</div>
+                    <span class="link-name">知乎</span>
+                </a>
+                <a href="https://twitter.com" class="link-card" target="_blank">
+                    <div class="link-icon">X</div>
+                    <span class="link-name">Twitter</span>
+                </a>
+                <a href="https://www.reddit.com" class="link-card" target="_blank">
+                    <div class="link-icon">R</div>
+                    <span class="link-name">Reddit</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="nav-section">
+            <h2 class="section-title">开发工具</h2>
+            <div class="links-grid">
+                <a href="https://stackoverflow.com" class="link-card" target="_blank">
+                    <div class="link-icon">SO</div>
+                    <span class="link-name">Stack Overflow</span>
+                </a>
+                <a href="https://www.npmjs.com" class="link-card" target="_blank">
+                    <div class="link-icon">npm</div>
+                    <span class="link-name">npm</span>
+                </a>
+                <a href="https://developer.mozilla.org" class="link-card" target="_blank">
+                    <div class="link-icon">MDN</div>
+                    <span class="link-name">MDN</span>
+                </a>
+                <a href="https://www.w3schools.com" class="link-card" target="_blank">
+                    <div class="link-icon">W3</div>
+                    <span class="link-name">W3Schools</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="nav-section">
+            <h2 class="section-title">视频娱乐</h2>
+            <div class="links-grid">
+                <a href="https://www.youtube.com" class="link-card" target="_blank">
+                    <div class="link-icon">YT</div>
+                    <span class="link-name">YouTube</span>
+                </a>
+                <a href="https://www.netflix.com" class="link-card" target="_blank">
+                    <div class="link-icon">N</div>
+                    <span class="link-name">Netflix</span>
+                </a>
+                <a href="https://www.douyin.com" class="link-card" target="_blank">
+                    <div class="link-icon">抖</div>
+                    <span class="link-name">抖音</span>
+                </a>
+                <a href="https://v.qq.com" class="link-card" target="_blank">
+                    <div class="link-icon">腾</div>
+                    <span class="link-name">腾讯视频</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="nav-section">
+            <h2 class="section-title">在线工具</h2>
+            <div class="links-grid">
+                <a href="https://translate.google.com" class="link-card" target="_blank">
+                    <div class="link-icon">译</div>
+                    <span class="link-name">翻译</span>
+                </a>
+                <a href="https://www.canva.com" class="link-card" target="_blank">
+                    <div class="link-icon">C</div>
+                    <span class="link-name">Canva</span>
+                </a>
+                <a href="https://www.figma.com" class="link-card" target="_blank">
+                    <div class="link-icon">F</div>
+                    <span class="link-name">Figma</span>
+                </a>
+                <a href="https://www.notion.so" class="link-card" target="_blank">
+                    <div class="link-icon">N</div>
+                    <span class="link-name">Notion</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 个人导航页面</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
