@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   navigation:
     build: .
@@ -9,11 +7,11 @@ services:
     restart: unless-stopped
     environment:
       - TZ=Asia/Shanghai
-    volumes:
-      # 如果需要持久化自定义配置，可以取消注释以下行
-      # - ./index.html:/usr/share/nginx/html/index.html:ro
-      # - ./css:/usr/share/nginx/html/css:ro
-      # - ./js:/usr/share/nginx/html/js:ro
+    # volumes:
+    #   如果需要持久化自定义配置，可以取消注释以下行
+    #   - ./index.html:/usr/share/nginx/html/index.html:ro
+    #   - ./css:/usr/share/nginx/html/css:ro
+    #   - ./js:/usr/share/nginx/html/js:ro
     labels:
       - "com.navigation.description=Personal Navigation Page"
       - "com.navigation.version=1.0"
