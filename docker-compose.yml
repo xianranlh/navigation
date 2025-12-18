@@ -4,7 +4,7 @@ services:
     build: .
     container_name: jg_nav
     ports:
-      - "2266:3000"
+      - "13000:3000"
     environment:
       - NODE_ENV=production
       - DATABASE_URL=mysql://nav:lh116688257@host.docker.internal:3306/nav
