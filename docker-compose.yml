@@ -1,17 +1,16 @@
 services:
-  navigation:
+  jg_nav:
+    image: jg_nav:latest
     build: .
-    container_name: personal-navigation
+    container_name: jg_nav
     ports:
-      - "8080:80"
-    restart: unless-stopped
+      - "2266:3000"
     environment:
-      - TZ=Asia/Shanghai
-    # volumes:
-    #   如果需要持久化自定义配置，可以取消注释以下行
-    #   - ./index.html:/usr/share/nginx/html/index.html:ro
-    #   - ./css:/usr/share/nginx/html/css:ro
-    #   - ./js:/usr/share/nginx/html/js:ro
-    labels:
-      - "com.navigation.description=Personal Navigation Page"
-      - "com.navigation.version=1.0"
+      - NODE_ENV=production
+      - DATABASE_URL=file:/app/data/dev.db
+    volumes:
+      - data:/app/data
+    restart: unless-stopped
+
+volumes:
+  data:
