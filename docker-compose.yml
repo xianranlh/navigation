@@ -1,15 +1,41 @@
 services:
+  mysql:
+    image: mysql:8.0
+    container_name: nav-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root123456
+      MYSQL_DATABASE: nav
+      MYSQL_USER: nav
+      MYSQL_PASSWORD: lh116688257
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init-mysql.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot123456"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
   nav:
     image: nav:latest
     build: .
     container_name: nav
-    network_mode: "host"
+    ports:
+      - "3000:3000"
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=mysql://nav:lh116688257@127.0.0.1:3306/nav
+      - DATABASE_URL=mysql://nav:lh116688257@mysql:3306/nav
     volumes:
       - data:/app/data
+    depends_on:
+      mysql:
+        condition: service_healthy
     restart: unless-stopped
 
 volumes:
   data:
+  mysql_data:
