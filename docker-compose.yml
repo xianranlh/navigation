@@ -2,7 +2,7 @@ services:
   nav:
     image: nav:latest
     build: .
-    container_name: jg_nav
+    container_name: nav
     ports:
       - "12266:3000"
     environment:
