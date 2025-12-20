@@ -1,21 +1,10 @@
 #!/bin/sh
 
-# 调试：显示 DATABASE_URL
-echo "DEBUG: DATABASE_URL = $DATABASE_URL"
-
-# 检查是否使用 MySQL（通过 DATABASE_URL 判断）
-if echo "$DATABASE_URL" | grep -q "mysql://"; then
-  echo "使用 MySQL 数据库"
-  echo "MySQL 连接: $DATABASE_URL"
-else
-  # SQLite 模式（向后兼容）
-  echo "使用 SQLite 数据库"
-  if [ ! -f /app/data/dev.db ]; then
-    echo "数据库不存在，正在初始化..."
-    cp /app/prisma/dev.db.init /app/data/dev.db 2>/dev/null || touch /app/data/dev.db
-    echo "数据库初始化完成"
-  fi
-  chmod 666 /app/data/dev.db 2>/dev/null || true
+# 检查数据库是否存在
+if [ ! -f /app/data/dev.db ]; then
+  echo "数据库不存在，正在初始化..."
+  cp /app/prisma/dev.db.init /app/data/dev.db
+  echo "数据库初始化完成"
 fi
 
 # 确保 uploads 目录存在 (使用 data 卷进行统一存储)
@@ -34,6 +23,7 @@ fi
 # 确保数据目录和上传目录有写入权限
 chmod -R 777 /app/data
 chmod -R 777 /app/public/uploads
+chmod 666 /app/data/dev.db 2>/dev/null || true
 
 # 启动应用
 exec node server.js
