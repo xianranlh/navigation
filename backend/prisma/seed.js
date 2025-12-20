@@ -8,11 +8,11 @@ async function main() {
 
     // 创建默认用户
     const user = await prisma.user.upsert({
-        where: { username: 'admin' },
+        where: { username: 'xianran' },
         update: {},
         create: {
-            username: 'admin',
-            password: await bcrypt.hash('admin123', 10),
+            username: 'xianran',
+            password: await bcrypt.hash('lh116688257', 10),
             email: 'admin@example.com',
             role: 'admin'
         }

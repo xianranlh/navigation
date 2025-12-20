@@ -13,7 +13,7 @@
         <span class="link-count">{{ linkCount }}</span>
       </div>
       
-      <div class="header-actions" @click.stop>
+      <div class="header-actions" @click.stop v-if="isLoggedIn">
         <button class="action-btn" @click="handleEdit" title="编辑分类">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
             <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
@@ -35,6 +35,7 @@
           :group="{ name: 'links', pull: true, put: true }"
           item-key="id"
           :animation="200"
+          :disabled="!isLoggedIn"
           ghost-class="link-ghost"
           drag-class="link-drag"
           @change="handleDragChange"
@@ -66,7 +67,9 @@
 import { ref, computed, watch } from 'vue'
 import draggable from 'vuedraggable'
 import LinkCard from '../link/LinkCard.vue'
+import { useSettingsStore } from '../../stores/settings'
 import { useLinkStore } from '../../stores/link'
+import { useAuthStore } from '../../stores/auth'
 
 const props = defineProps({
   category: {
@@ -85,12 +88,15 @@ const emit = defineEmits([
 ])
 
 const linkStore = useLinkStore()
+const settingsStore = useSettingsStore()
+const authStore = useAuthStore()
 
 const isCollapsed = ref(false)
 const draggedId = ref(null)
 
 const links = computed(() => props.category.links || [])
 const linkCount = computed(() => links.value.length)
+const isLoggedIn = computed(() => authStore.isLoggedIn)
 
 // 用于拖拽排序的响应式列表
 const sortedLinks = ref([...links.value])
@@ -99,23 +105,38 @@ watch(links, (newLinks) => {
   sortedLinks.value = [...newLinks]
 }, { deep: true })
 
+const dragOptions = computed(() => ({
+  animation: 200,
+  group: 'links',
+  // 只有登录后才允许拖拽
+  disabled: !isLoggedIn.value,
+  ghostClass: 'link-ghost',
+  dragClass: 'link-drag',
+  delay: 100,
+  delayOnTouchOnly: true
+}))
+
 function toggleCollapse() {
   isCollapsed.value = !isCollapsed.value
 }
 
 function handleEdit() {
+  if (!isLoggedIn.value) return
   emit('edit', props.category)
 }
 
 function handleAddLink() {
+  if (!isLoggedIn.value) return
   emit('add-link', props.category.id)
 }
 
 function handleEditLink(link) {
+  if (!isLoggedIn.value) return
   emit('edit-link', link)
 }
 
 function handleDeleteLink(link) {
+  if (!isLoggedIn.value) return
   emit('delete-link', link)
 }
 

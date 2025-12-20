@@ -31,7 +31,7 @@
 
     <!-- 悬浮操作按钮 -->
     <Transition name="fade">
-      <div v-show="isHovered && !isDragging" class="link-actions">
+      <div v-show="isHovered && !isDragging && isLoggedIn" class="link-actions">
         <button class="action-btn" @click.stop="handleEdit" title="编辑">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
             <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
@@ -55,6 +55,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useSettingsStore } from '../../stores/settings'
+import { useAuthStore } from '../../stores/auth'
 
 const props = defineProps({
   link: {
@@ -74,10 +75,12 @@ const props = defineProps({
 const emit = defineEmits(['click', 'edit', 'delete', 'contextmenu'])
 
 const settingsStore = useSettingsStore()
+const authStore = useAuthStore()
 const isHovered = ref(false)
 const iconError = ref(false)
 
 const showDescription = computed(() => settingsStore.showDescription)
+const isLoggedIn = computed(() => authStore.isLoggedIn)
 
 const displayUrl = computed(() => {
   try {
@@ -100,14 +103,17 @@ function handleClick() {
 }
 
 function handleEdit() {
+  if (!isLoggedIn.value) return
   emit('edit', props.link)
 }
 
 function handleDelete() {
+  if (!isLoggedIn.value) return
   emit('delete', props.link)
 }
 
 function showContextMenu(event) {
+  if (!isLoggedIn.value) return
   emit('contextmenu', { event, link: props.link })
 }
 </script>

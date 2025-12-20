@@ -190,22 +190,35 @@ defineExpose({
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 16px;
-  transition: all 0.3s ease;
+  padding: 10px 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(45, 38, 64, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px; /* More rounded */
+}
+
+.search-bar:hover {
+  background: rgba(45, 38, 64, 0.6);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .search-bar.is-focused {
+  background: rgba(45, 38, 64, 0.8);
   border-color: var(--hsr-cyan);
-  box-shadow: var(--hsr-shadow-glow-cyan);
+  box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.2), var(--hsr-shadow-glow-cyan);
+  transform: scale(1.01);
 }
 
 .search-icon {
   color: var(--hsr-text-muted);
   flex-shrink: 0;
+  transition: all 0.3s ease;
 }
 
 .search-bar.is-focused .search-icon {
   color: var(--hsr-cyan);
+  transform: scale(1.1);
 }
 
 .search-input {
@@ -215,25 +228,34 @@ defineExpose({
   color: var(--hsr-text-primary);
   font-size: 15px;
   outline: none;
+  padding: 0;
 }
 
 .search-input::placeholder {
   color: var(--hsr-text-muted);
+  transition: color 0.3s ease;
+}
+
+.search-bar.is-focused .search-input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
 }
 
 .shortcut-hint {
   color: var(--hsr-text-muted);
   font-size: 12px;
   white-space: nowrap;
+  pointer-events: none;
 }
 
 .shortcut-hint kbd {
   display: inline-block;
   padding: 2px 6px;
-  background: rgba(139, 122, 173, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 4px;
   font-family: inherit;
   font-size: 11px;
+  color: var(--hsr-text-secondary);
 }
 
 .clear-btn {
@@ -242,13 +264,15 @@ defineExpose({
   justify-content: center;
   color: var(--hsr-text-muted);
   padding: 4px;
-  border-radius: var(--hsr-radius-sm);
+  border-radius: 50%;
   transition: all 0.2s ease;
+  margin-right: -4px;
 }
 
 .clear-btn:hover {
   color: var(--hsr-text-primary);
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
+  transform: rotate(90deg);
 }
 
 /* 搜索结果 */

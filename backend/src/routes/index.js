@@ -1,11 +1,13 @@
 const express = require('express')
 const router = express.Router()
 
+const authRoutes = require('./auth')
 const categoryRoutes = require('./category')
 const linkRoutes = require('./link')
 const parseRoutes = require('./parse')
 const uploadRoutes = require('./upload')
 
+router.use('/auth', authRoutes)
 router.use('/categories', categoryRoutes)
 router.use('/links', linkRoutes)
 router.use('/parse', parseRoutes)

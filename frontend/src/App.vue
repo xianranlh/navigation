@@ -24,13 +24,16 @@
 <script setup>
 import { onMounted } from 'vue'
 import { useSettingsStore } from './stores/settings'
+import { useAuthStore } from './stores/auth'
 import AppHeader from './components/layout/AppHeader.vue'
 import ToastContainer from './components/common/ToastContainer.vue'
 
 const settingsStore = useSettingsStore()
+const authStore = useAuthStore()
 
 onMounted(() => {
   settingsStore.initTheme()
+  authStore.checkAuth()
 })
 </script>
 

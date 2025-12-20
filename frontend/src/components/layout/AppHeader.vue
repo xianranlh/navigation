@@ -2,30 +2,54 @@
   <header class="app-header glass-panel">
     <div class="header-content">
       <!-- Logo 区域 -->
-      <div class="header-logo" @click="goHome">
-        <span class="logo-icon">🚀</span>
-        <span class="logo-text">星穹导航</span>
+      <div class="header-left">
+        <div class="header-logo" @click="goHome">
+          <span class="logo-icon">🚀</span>
+          <span class="logo-text">星穹导航</span>
+        </div>
       </div>
 
-      <!-- 搜索栏 -->
-      <SearchBar 
-        ref="searchBarRef"
-        @select="handleSearchSelect"
-        class="header-search"
-      />
+      <!-- 搜索栏 (居中) -->
+      <div class="header-center">
+        <SearchBar 
+          ref="searchBarRef"
+          @select="handleSearchSelect"
+          class="header-search"
+        />
+      </div>
 
       <!-- 右侧操作区 -->
       <div class="header-actions">
-        <!-- 快速添加按钮 -->
+        <!-- 登录按钮 (未登录显示) -->
         <button 
-          class="action-btn add-btn glass-button glass-button-primary"
-          @click="showQuickAdd = true"
+          v-if="!authStore.isLoggedIn"
+          class="glass-button login-btn"
+          @click="showLoginModal = true"
         >
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-          </svg>
-          <span class="btn-text">添加</span>
+          登录
         </button>
+
+        <template v-else>
+          <!-- 快速添加按钮 (登录后显示) -->
+          <button 
+            class="action-btn add-btn glass-button glass-button-primary"
+            @click="showQuickAdd = true"
+          >
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+            </svg>
+            <span class="btn-text">添加</span>
+          </button>
+
+          <!-- 管理员/退出下拉 -->
+          <div class="user-menu">
+            <button class="action-btn icon-btn" @click="handleLogout" title="退出登录">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+              </svg>
+            </button>
+          </div>
+        </template>
 
         <!-- 主题切换 -->
         <button 
@@ -54,10 +78,15 @@
       </div>
     </div>
 
-    <!-- 快速添加弹窗 -->
+    <!-- 弹窗组件 -->
     <QuickAddModal 
       v-model:visible="showQuickAdd"
       @success="handleAddSuccess"
+    />
+    
+    <LoginModal 
+      v-model:visible="showLoginModal" 
+      @success="handleLoginSuccess"
     />
   </header>
 </template>
@@ -67,15 +96,19 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useSettingsStore } from '../../stores/settings'
 import { useLinkStore } from '../../stores/link'
+import { useAuthStore } from '../../stores/auth'
 import SearchBar from '../features/SearchBar.vue'
 import QuickAddModal from '../features/QuickAddModal.vue'
+import LoginModal from '../auth/LoginModal.vue'
 
 const router = useRouter()
 const settingsStore = useSettingsStore()
 const linkStore = useLinkStore()
+const authStore = useAuthStore()
 
 const searchBarRef = ref(null)
 const showQuickAdd = ref(false)
+const showLoginModal = ref(false)
 
 const isDark = computed(() => settingsStore.theme === 'dark')
 
@@ -92,7 +125,6 @@ function toggleTheme() {
 }
 
 function handleSearchSelect(link) {
-  // 打开链接
   linkStore.recordClick(link.id)
   window.open(link.url, '_blank')
 }
@@ -101,14 +133,23 @@ function handleAddSuccess() {
   // 刷新分类数据等
 }
 
-// 快捷键 Ctrl+K 打开搜索
+function handleLoginSuccess() {
+  // 登录成功后的回调
+}
+
+function handleLogout() {
+  authStore.logout()
+}
+
+// 快捷键监听
 document.addEventListener('keydown', (e) => {
+  // Ctrl+K 搜索
   if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
     e.preventDefault()
     searchBarRef.value?.focus()
   }
-  // Ctrl+D 打开快速添加
-  if ((e.ctrlKey || e.metaKey) && e.key === 'd') {
+  // Ctrl+D 添加 (需登录)
+  if ((e.ctrlKey || e.metaKey) && e.key === 'd' && authStore.isLoggedIn) {
     e.preventDefault()
     showQuickAdd.value = true
   }
@@ -124,12 +165,23 @@ document.addEventListener('keydown', (e) => {
 }
 
 .header-content {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  gap: 24px;
   padding: 12px 24px;
   max-width: 1400px;
   margin: 0 auto;
+}
+
+.header-left {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.header-center {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .header-logo {
@@ -137,11 +189,6 @@ document.addEventListener('keydown', (e) => {
   align-items: center;
   gap: 10px;
   cursor: pointer;
-  flex-shrink: 0;
-}
-
-.logo-icon {
-  font-size: 24px;
 }
 
 .logo-text {
@@ -154,15 +201,14 @@ document.addEventListener('keydown', (e) => {
 }
 
 .header-search {
-  flex: 1;
-  max-width: 500px;
+  width: 500px;
 }
 
 .header-actions {
   display: flex;
+  justify-content: flex-end;
   align-items: center;
   gap: 8px;
-  flex-shrink: 0;
 }
 
 .add-btn {
@@ -170,6 +216,11 @@ document.addEventListener('keydown', (e) => {
   align-items: center;
   gap: 6px;
   padding: 8px 16px;
+}
+
+.login-btn {
+  padding: 6px 20px;
+  min-width: 80px;
 }
 
 .btn-text {
@@ -195,15 +246,21 @@ document.addEventListener('keydown', (e) => {
 /* 响应式 */
 @media (max-width: 768px) {
   .header-content {
+    grid-template-columns: auto 1fr auto;
     gap: 12px;
     padding: 10px 16px;
   }
 
-  .logo-text {
-    display: none;
+  .header-center {
+    justify-content: flex-end; /* 小屏时搜索靠右或居中需看情况，或者隐藏 */
   }
 
-  .btn-text {
+  .header-search {
+    width: 100%;
+    max-width: none;
+  }
+
+  .logo-text, .btn-text {
     display: none;
   }
 
