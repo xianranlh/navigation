@@ -1,4 +1,8 @@
-FROM node:18-alpine
+# 使用 Debian-slim 镜像，对 Prisma 和 OpenSSL 兼容性更好
+FROM node:18-slim
+
+# 安装 OpenSSL 和 CA 证书
+RUN apt-get update -y && apt-get install -y openssl ca-certificates && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
