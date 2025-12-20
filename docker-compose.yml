@@ -1,0 +1,16 @@
+services:
+  nav:
+    image: nav:latest
+    build: .
+    container_name: jg_nav
+    ports:
+      - "12266:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=file:/app/data/dev.db
+    volumes:
+      - data:/app/data
+    restart: unless-stopped
+
+volumes:
+  data:
