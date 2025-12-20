@@ -15,7 +15,10 @@ RUN npx prisma generate
 # 复制源代码
 COPY . .
 
-EXPOSE 4000
+# 确保二进制文件有执行权限
+RUN chmod +x node_modules/.bin/*
+
+EXPOSE 13001
 
 # 启动命令：先执行数据库迁移，再启动服务
 CMD ["sh", "-c", "npx prisma db push && node src/app.js"]
