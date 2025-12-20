@@ -7,19 +7,16 @@ services:
       dockerfile: Dockerfile
     container_name: nav-backend
     restart: unless-stopped
+    network_mode: host
     environment:
-      DATABASE_URL: mysql://nav:lh116688257@host.docker.internal:3306/nav
+      DATABASE_URL: mysql://nav:lh116688257@127.0.0.1:3306/nav
       JWT_SECRET: ${JWT_SECRET:-star-rail-navigation-secret-key-2024}
       PORT: 13001
       UPLOAD_DIR: /app/uploads
-    ports:
-      - "13001:13001"
+    # ports: # network_mode: host 不支持端口映射，直接使用宿主机端口
+    #   - "13001:13001"
     volumes:
       - uploads_data:/app/uploads
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    networks:
-      - nav-network
 
   frontend:
     build:

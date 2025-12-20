@@ -49,9 +49,11 @@ sleep 15
 # 初始化数据库
 printf "${YELLOW}🗄️ 同步数据库结构...${NC}\n"
 docker compose exec -T backend npx prisma db push --accept-data-loss 2>/dev/null || {
-    printf "${YELLOW}⏳ 后端服务启动中，再等待 10 秒...${NC}\n"
-    sleep 10
-    docker compose exec -T backend npx prisma db push --accept-data-loss
+    printf "${RED}⚠️ 同步失败，正在查看后端日志...${NC}\n"
+    docker compose logs backend | tail -n 20
+    printf "${YELLOW}尝试重新运行同步...${NC}\n"
+    sleep 5
+    docker compose exec -T backend npx prisma db push --accept-data-loss || true
 }
 
 # 询问是否填充示例数据
