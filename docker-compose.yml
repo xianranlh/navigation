@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: nav-backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: mysql://nav:lh116688257@host.docker.internal:3306/nav
+      JWT_SECRET: ${JWT_SECRET:-star-rail-navigation-secret-key-2024}
+      PORT: 13001
+      UPLOAD_DIR: /app/uploads
+    ports:
+      - "13001:13001"
+    volumes:
+      - uploads_data:/app/uploads
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - nav-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: nav-frontend
+    restart: unless-stopped
+    ports:
+      - "13000:80"
+    depends_on:
+      - backend
+    networks:
+      - nav-network
+
+networks:
+  nav-network:
+    driver: bridge
+
+volumes:
+  uploads_data:
