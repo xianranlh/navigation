@@ -1,10 +1,10 @@
 services:
-  jg_nav:
-    image: jg_nav:latest
+  nav:
+    image: nav:latest
     build: .
-    container_name: jg_nav
+    container_name: nav
     ports:
-      - "2266:3000"
+      - "13000:3000"
     environment:
       - NODE_ENV=production
       - DATABASE_URL=file:/app/data/dev.db
