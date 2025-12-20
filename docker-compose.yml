@@ -4,7 +4,7 @@ services:
     build: .
     container_name: nav
     ports:
-      - "3000:3000"
+      - "13000:3000"
     environment:
       - NODE_ENV=production
       # 使用 Docker 网桥 IP 连接主机上的 MySQL 容器
