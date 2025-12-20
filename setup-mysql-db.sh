@@ -16,7 +16,7 @@ echo "Navigation MySQL 数据库初始化"
 echo "=========================================="
 
 # 检查 Docker 是否安装
-if ! command -v docker &> /dev/null; then
+if ! which docker > /dev/null 2>&1; then
     echo "错误: Docker 未安装或未在 PATH 中"
     exit 1
 fi
