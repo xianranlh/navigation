@@ -1,9 +1,12 @@
 #!/bin/sh
 
+# 调试：显示 DATABASE_URL
+echo "DEBUG: DATABASE_URL = $DATABASE_URL"
+
 # 检查是否使用 MySQL（通过 DATABASE_URL 判断）
 if echo "$DATABASE_URL" | grep -q "mysql://"; then
   echo "使用 MySQL 数据库"
-  echo "DATABASE_URL: $DATABASE_URL"
+  echo "MySQL 连接: $DATABASE_URL"
 else
   # SQLite 模式（向后兼容）
   echo "使用 SQLite 数据库"

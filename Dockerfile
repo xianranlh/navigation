@@ -23,10 +23,11 @@ COPY . .
 # 删除本地.env文件，使用Docker环境变量
 RUN rm -f .env .env.local .env.production
 
-# 设置生产环境数据库路径
-ENV DATABASE_URL="file:/app/data/dev.db"
+# 注意：不在构建时设置 DATABASE_URL，将由运行时环境变量决定
+# 构建时使用临时的 SQLite URL 以便 Prisma 能生成客户端
+ENV DATABASE_URL="file:/tmp/build.db"
 
-# 生成 Prisma Client
+# 生成 Prisma Client（支持多种数据库）
 RUN npx prisma generate
 
 # 构建应用
