@@ -9,7 +9,7 @@ services:
       - NODE_ENV=production
       # 使用 Docker 网桥 IP 连接主机上的 MySQL 容器
       # 如果 MySQL 容器使用的是其他网络，请修改为对应的容器名或 IP
-      - DATABASE_URL=mysql://root:lh116688257@127.0.0.1:3306/nav
+      - DATABASE_URL=mysql://root:lh116688257@host.docker.internal:3306/nav
     volumes:
       - data:/app/data
     restart: unless-stopped
