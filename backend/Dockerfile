@@ -1,5 +1,5 @@
-# 使用 Debian-slim 镜像，对 Prisma 和 OpenSSL 兼容性更好
-FROM node:18-slim
+# 使用 Node 20 以支持现代 Web API (如 File 类)
+FROM node:20-slim
 
 # 安装 OpenSSL 和 CA 证书
 RUN apt-get update -y && apt-get install -y openssl ca-certificates && rm -rf /var/lib/apt/lists/*
