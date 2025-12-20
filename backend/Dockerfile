@@ -7,7 +7,7 @@ COPY package*.json ./
 COPY prisma ./prisma/
 
 # 安装依赖
-RUN npm ci --only=production
+RUN npm install --only=production
 
 # 生成 Prisma Client
 RUN npx prisma generate
