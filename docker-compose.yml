@@ -7,9 +7,11 @@ services:
       - "12266:3000"
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=file:/app/data/dev.db
+      - DATABASE_URL=mysql://nav:lh116688257@host.docker.internal:3306/nav
     volumes:
       - data:/app/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     restart: unless-stopped
 
 volumes:
