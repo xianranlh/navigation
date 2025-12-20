@@ -3,15 +3,12 @@ services:
     image: nav:latest
     build: .
     container_name: nav
-    ports:
-      - "12266:3000"
+    network_mode: "host"
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=mysql://nav:lh116688257@host.docker.internal:3306/nav
+      - DATABASE_URL=mysql://nav:lh116688257@127.0.0.1:3306/nav
     volumes:
       - data:/app/data
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     restart: unless-stopped
 
 volumes:
