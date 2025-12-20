@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const uploadController = require('../controllers/uploadController')
 const auth = require('../middlewares/auth')
 
 // 上传图片

@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const linkController = require('../controllers/linkController')
 const auth = require('../middlewares/auth')
 
 // 搜索链接（放在 /:id 之前）
