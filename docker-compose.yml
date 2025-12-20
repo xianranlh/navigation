@@ -22,16 +22,7 @@ services:
       dockerfile: Dockerfile
     container_name: nav-frontend
     restart: unless-stopped
-    ports:
-      - "13000:80"
-    depends_on:
-      - backend
-    networks:
-      - nav-network
-
-networks:
-  nav-network:
-    driver: bridge
+    network_mode: host
 
 volumes:
   uploads_data:
