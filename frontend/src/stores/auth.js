@@ -4,7 +4,7 @@ import * as authApi from '../api/auth'
 import { useToastStore } from './toast'
 
 export const useAuthStore = defineStore('auth', () => {
-    const token = ref(localStorage.getItem('token') || '')
+    const token = ref(localStorage.getItem('nav-token') || '')
     const user = ref(JSON.parse(localStorage.getItem('user') || 'null'))
     const toast = useToastStore()
 
@@ -17,7 +17,7 @@ export const useAuthStore = defineStore('auth', () => {
             token.value = res.data.token
             user.value = res.data.user
 
-            localStorage.setItem('token', token.value)
+            localStorage.setItem('nav-token', token.value)
             localStorage.setItem('user', JSON.stringify(user.value))
 
             toast.success('登录成功')
@@ -31,7 +31,7 @@ export const useAuthStore = defineStore('auth', () => {
     function logout() {
         token.value = ''
         user.value = null
-        localStorage.removeItem('token')
+        localStorage.removeItem('nav-token')
         localStorage.removeItem('user')
         toast.success('已退出登录')
     }

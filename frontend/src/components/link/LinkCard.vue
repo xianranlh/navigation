@@ -1,7 +1,11 @@
 <template>
   <div 
     class="link-card glass-card hover-lift"
-    :class="{ 'is-selected': isSelected, 'is-dragging': isDragging }"
+    :class="{ 
+      'is-selected': isSelected, 
+      'is-dragging': isDragging,
+      'is-list': settingsStore.layout === 'list'
+    }"
     @click="handleClick"
     @contextmenu.prevent="showContextMenu"
     @mouseenter="isHovered = true"
@@ -188,9 +192,36 @@ function showContextMenu(event) {
   font-size: 12px;
   color: var(--hsr-text-secondary);
   margin: 0;
-  white-space: nowrap;
+  white-space: normal; /* Allow wrap for better visibility */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 1.4;
+}
+
+/* 列表模式下的特殊样式 */
+.link-card.is-list {
+  padding: 10px 16px;
+}
+
+.link-card.is-list .link-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.link-card.is-list .link-icon img {
+  width: 20px;
+  height: 20px;
+}
+
+.link-card.is-list .link-title {
+  font-size: 14px;
+}
+
+.link-card.is-list .link-desc {
+  -webkit-line-clamp: 1; /* List mode normally has 1 line desc */
 }
 
 .link-url {

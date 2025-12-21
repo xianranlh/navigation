@@ -34,12 +34,9 @@
           v-model="sortedLinks"
           :group="{ name: 'links', pull: true, put: true }"
           item-key="id"
-          :animation="200"
-          :disabled="!isLoggedIn"
-          ghost-class="link-ghost"
-          drag-class="link-drag"
+          v-bind="dragOptions"
           @change="handleDragChange"
-          class="links-grid"
+          :class="['links-container', settingsStore.layout]"
         >
           <template #item="{ element }">
             <LinkCard
@@ -254,10 +251,16 @@ async function handleDragChange(evt) {
   padding-left: 16px;
 }
 
-.links-grid {
+.links-container.grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 12px;
+}
+
+.links-container.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .empty-state {
