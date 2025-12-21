@@ -190,11 +190,13 @@ defineExpose({
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 16px;
+  height: 48px; /* Fixed height for better alignment of children */
+  padding: 0 20px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   background: rgba(45, 38, 64, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 24px; /* More rounded */
+  border-radius: 24px;
+  backdrop-filter: blur(8px);
 }
 
 .search-bar:hover {
@@ -211,9 +213,13 @@ defineExpose({
 }
 
 .search-icon {
+  display: flex; /* Ensure SVG centers */
+  align-items: center;
+  justify-content: center;
   color: var(--hsr-text-muted);
   flex-shrink: 0;
   transition: all 0.3s ease;
+  height: 100%; /* Match parent height */
 }
 
 .search-bar.is-focused .search-icon {
@@ -223,17 +229,20 @@ defineExpose({
 
 .search-input {
   flex: 1;
+  height: 100%; /* Fill height */
   background: transparent;
   border: none;
   color: var(--hsr-text-primary);
-  font-size: 15px;
+  font-size: 16px; /* Slightly larger text */
   outline: none;
   padding: 0;
+  line-height: normal; /* Reset line-height */
 }
 
 .search-input::placeholder {
   color: var(--hsr-text-muted);
   transition: color 0.3s ease;
+  opacity: 0.7;
 }
 
 .search-bar.is-focused .search-input::placeholder {

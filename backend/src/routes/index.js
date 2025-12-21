@@ -6,12 +6,14 @@ const categoryRoutes = require('./category')
 const linkRoutes = require('./link')
 const parseRoutes = require('./parse')
 const uploadRoutes = require('./upload')
+const noteRoutes = require('./note')
 
 router.use('/auth', authRoutes)
 router.use('/categories', categoryRoutes)
 router.use('/links', linkRoutes)
 router.use('/parse', parseRoutes)
 router.use('/upload', uploadRoutes)
+router.use('/notes', noteRoutes)
 
 // 根路由
 router.get('/', (req, res) => {

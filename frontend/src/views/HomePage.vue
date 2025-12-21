@@ -80,6 +80,8 @@
       :danger="true"
       @confirm="confirmDeleteLink"
     />
+    <!-- 便签组件 -->
+    <NoteWidget />
   </div>
 </template>
 
@@ -91,7 +93,9 @@ import { useToastStore } from '../stores/toast'
 import CategorySection from '../components/category/CategorySection.vue'
 import QuickAddModal from '../components/features/QuickAddModal.vue'
 import CategoryEditModal from '../components/category/CategoryEditModal.vue'
+import CategoryEditModal from '../components/category/CategoryEditModal.vue'
 import ConfirmModal from '../components/common/ConfirmModal.vue'
+import NoteWidget from '../components/features/NoteWidget.vue'
 
 const categoryStore = useCategoryStore()
 const linkStore = useLinkStore()

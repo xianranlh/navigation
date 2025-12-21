@@ -1,12 +1,11 @@
 /* 崩坏：星穹铁道 主题变量 */
 :root {
-  /* 主色调 - 深空紫系 */
+  /* 默认深色主题 (Dark) */
   --hsr-bg-deep: #0d0a14;
   --hsr-bg-dark: #1a1625;
   --hsr-bg-card: #2d2640;
   --hsr-bg-card-hover: #3a3255;
-  
-  /* 强调色 */
+
   --hsr-gold: #ffd700;
   --hsr-gold-dim: #c9a800;
   --hsr-gold-glow: rgba(255, 215, 0, 0.4);
@@ -16,45 +15,80 @@
   --hsr-pink: #ff6b9d;
   --hsr-purple-light: #8b7aad;
   --hsr-purple-glow: rgba(139, 122, 173, 0.3);
-  
-  /* 文字颜色 */
+
   --hsr-text-primary: #f0eef5;
   --hsr-text-secondary: #a8a3b8;
   --hsr-text-muted: #6b6580;
-  
-  /* 边框 */
+  --hsr-text-inverse: #1a1625;
+
   --hsr-border: rgba(139, 122, 173, 0.2);
   --hsr-border-hover: rgba(0, 212, 255, 0.4);
   --hsr-border-gold: rgba(255, 215, 0, 0.3);
-  
-  /* 阴影 */
+
   --hsr-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
   --hsr-shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
   --hsr-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
   --hsr-shadow-glow-cyan: 0 0 20px rgba(0, 212, 255, 0.3);
   --hsr-shadow-glow-gold: 0 0 20px rgba(255, 215, 0, 0.3);
-  
-  /* 毛玻璃 */
+
   --hsr-glass-bg: rgba(45, 38, 64, 0.6);
   --hsr-glass-blur: blur(20px);
-  
-  /* 圆角 */
+
   --hsr-radius-sm: 8px;
   --hsr-radius-md: 12px;
   --hsr-radius-lg: 16px;
   --hsr-radius-xl: 24px;
-  
-  /* 动画 */
+
   --hsr-transition-fast: 0.15s ease;
   --hsr-transition-normal: 0.3s ease;
   --hsr-transition-slow: 0.5s ease;
-  
-  /* 字体 */
+
   --hsr-font-main: 'Outfit', 'Noto Sans SC', system-ui, sans-serif;
+
+  --hsr-bg-overlay: rgba(0, 0, 0, 0.8);
+}
+
+/* 浅色主题 (Light) */
+[data-theme='light'] {
+  --hsr-bg-deep: #f5f6fa;
+  --hsr-bg-dark: #ffffff;
+  --hsr-bg-card: rgba(255, 255, 255, 0.7);
+  --hsr-bg-card-hover: #ffffff;
+
+  --hsr-gold: #d4b106;
+  --hsr-gold-dim: #998000;
+  --hsr-gold-glow: rgba(212, 177, 6, 0.2);
+  --hsr-cyan: #0099cc;
+  --hsr-cyan-dim: #007799;
+  --hsr-cyan-glow: rgba(0, 153, 204, 0.2);
+  --hsr-pink: #e65a8c;
+  --hsr-purple-light: #6a5acd;
+  --hsr-purple-glow: rgba(106, 90, 205, 0.15);
+
+  --hsr-text-primary: #2c2c3a;
+  --hsr-text-secondary: #5e5e70;
+  --hsr-text-muted: #8e8e9e;
+  --hsr-text-inverse: #ffffff;
+
+  --hsr-border: rgba(106, 90, 205, 0.15);
+  --hsr-border-hover: rgba(0, 153, 204, 0.4);
+  --hsr-border-gold: rgba(212, 177, 6, 0.3);
+
+  --hsr-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --hsr-shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --hsr-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.1);
+  --hsr-shadow-glow-cyan: 0 0 15px rgba(0, 153, 204, 0.15);
+  --hsr-shadow-glow-gold: 0 0 15px rgba(212, 177, 6, 0.15);
+
+  --hsr-glass-bg: rgba(255, 255, 255, 0.75);
+
+  --hsr-bg-overlay: rgba(255, 255, 255, 0.2);
 }
 
 /* 全局重置 */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -81,7 +115,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: 
+  background:
     radial-gradient(ellipse at top, #1a1030 0%, #0d0a14 50%),
     radial-gradient(ellipse at bottom, #0f0d18 0%, #0d0a14 100%);
   z-index: -2;
@@ -94,23 +128,30 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: 
+  background-image:
     radial-gradient(2px 2px at 20px 30px, #fff, transparent),
-    radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(255, 255, 255, 0.8), transparent),
     radial-gradient(1px 1px at 90px 40px, #fff, transparent),
-    radial-gradient(2px 2px at 130px 80px, rgba(255,255,255,0.6), transparent),
+    radial-gradient(2px 2px at 130px 80px, rgba(255, 255, 255, 0.6), transparent),
     radial-gradient(1px 1px at 160px 120px, #fff, transparent),
-    radial-gradient(2px 2px at 200px 50px, rgba(255,215,0,0.5), transparent),
+    radial-gradient(2px 2px at 200px 50px, rgba(255, 215, 0, 0.5), transparent),
     radial-gradient(1px 1px at 250px 160px, #fff, transparent),
-    radial-gradient(2px 2px at 300px 100px, rgba(0,212,255,0.5), transparent);
+    radial-gradient(2px 2px at 300px 100px, rgba(0, 212, 255, 0.5), transparent);
   background-repeat: repeat;
   background-size: 350px 200px;
   animation: twinkle 8s ease-in-out infinite alternate;
 }
 
 @keyframes twinkle {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
+
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
 /* 滚动条样式 */
@@ -159,7 +200,8 @@ button {
 }
 
 /* 输入框基础样式 */
-input, textarea {
+input,
+textarea {
   font-family: inherit;
   background: var(--hsr-glass-bg);
   border: 1px solid var(--hsr-border);
@@ -169,12 +211,14 @@ input, textarea {
   transition: var(--hsr-transition-normal);
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
   outline: none;
   border-color: var(--hsr-cyan);
   box-shadow: var(--hsr-shadow-glow-cyan);
 }
 
-input::placeholder, textarea::placeholder {
+input::placeholder,
+textarea::placeholder {
   color: var(--hsr-text-muted);
 }
